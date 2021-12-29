@@ -32,14 +32,17 @@ func main() {
 	updates := bot.GetUpdatesChan(u)
 
 	for update := range updates {
-		if update.Message != nil { // If we got a message
+		if update.Message != nil {
+			if update.Message.Text == "/start" {
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Send me the link or name of a website and I'll take care of the rest")
+				bot.Send(msg)
+			} else {
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Looking for "+update.Message.Text+"...")
+				msg.ReplyToMessageID = update.Message.MessageID
+				bot.Send(msg)
+				f.Screenshot(update)
+			}
 
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Looking for "+update.Message.Text+"...")
-			msg.ReplyToMessageID = update.Message.MessageID
-			bot.Send(msg)
-
-			f.HandleCommands(update)
-			f.Screenshot(update)
 		}
 
 	}

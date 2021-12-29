@@ -13,32 +13,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-//HandleCommands funtion will recieve a message in the chat and the bot will reply with a message
-func HandleCommands(update tgbotapi.Update) {
-
-	error := godotenv.Load()
-	if error != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	TOKEN := os.Getenv("TOKEN")
-
-	bot, error := tgbotapi.NewBotAPI(TOKEN)
-
-	if error != nil {
-		panic(error)
-	}
-
-	switch update.Message.Command() {
-	case "start":
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hello! send me the name or link of the website. I will take care of the rest.")
-		bot.Send(msg)
-	case "help":
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Send me the name or link of the website. I will take care of the rest.")
-		bot.Send(msg)
-	}
-}
-
 //Screenshot function will save the image in the disk and send it
 func Screenshot(update tgbotapi.Update) {
 	error := godotenv.Load()
@@ -57,6 +31,7 @@ func Screenshot(update tgbotapi.Update) {
 	defer cancel()
 
 	url := update.Message.Text
+
 	if !strings.Contains(url, "http") {
 		url = "http://" + url
 	}

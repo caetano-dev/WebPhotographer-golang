@@ -34,5 +34,5 @@ or if you want the executable file:
 
 ```
 $ go build main.go
-$ ./main.go
+$ ./main
 ```

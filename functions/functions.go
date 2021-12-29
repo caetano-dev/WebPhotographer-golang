@@ -44,16 +44,16 @@ func Screenshot(update tgbotapi.Update) {
 
 	var imageBuf []byte
 	if error := chromedp.Run(ctx, ScreenshotTasks(url, &imageBuf)); error != nil {
-		log.Fatal(error)
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "An error happened")
+		bot.Send(msg)
 	}
 
 	if error := ioutil.WriteFile(filename, imageBuf, 0644); error != nil {
-		log.Fatal(error)
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "An error happened")
+		bot.Send(msg)
 	}
 
 	photo := tgbotapi.NewInputMediaPhoto(tgbotapi.FilePath(filename))
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Here it is!")
-	bot.Send(msg)
 	bot.SendMediaGroup(tgbotapi.NewMediaGroup(update.Message.Chat.ID, []interface{}{photo}))
 
 }

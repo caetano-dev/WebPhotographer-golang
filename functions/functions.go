@@ -39,6 +39,7 @@ func HandleCommands(update tgbotapi.Update) {
 	}
 }
 
+//Screenshot function will save the image in the disk and send it
 func Screenshot(update tgbotapi.Update) {
 	error := godotenv.Load()
 	if error != nil {
@@ -82,6 +83,7 @@ func Screenshot(update tgbotapi.Update) {
 
 }
 
+//ScreenshotTasks function will take a screenshot of the website
 func ScreenshotTasks(url string, imageBuf *[]byte) chromedp.Tasks {
 	return chromedp.Tasks{
 		chromedp.Navigate(url),

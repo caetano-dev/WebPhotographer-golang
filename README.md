@@ -4,10 +4,9 @@ A Telegram bot that is able to take screenshots of webpages remotely and send it
 
 ## How to set up
 
-In order to run the bot you will need a [Telegram](https://core.telegram.org/api) API key.
+In order to run the bot you will need a [Telegram](https://core.telegram.org/api) API key and Chrome/Chromium installed.
 
-rename the file from `example.env` to `.env` and put the key in the file.
-
+Rename the file from `example.env` to `.env` and put the key in the file.
 
 ```env
 TELEGRAM_KEY=<TOKEN>

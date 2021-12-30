@@ -16,10 +16,9 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	TOKEN := os.Getenv("TOKEN")
-	bot, err := tgbotapi.NewBotAPI(TOKEN)
-	if err != nil {
-		log.Panic(err)
+	bot, error := tgbotapi.NewBotAPI(os.Getenv("TOKEN"))
+	if error != nil {
+		log.Panic(error)
 	}
 
 	bot.Debug = true

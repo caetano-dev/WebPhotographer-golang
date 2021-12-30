@@ -20,8 +20,7 @@ func Screenshot(update tgbotapi.Update) {
 		log.Fatal("Error loading .env file")
 	}
 
-	TOKEN := os.Getenv("TOKEN")
-	bot, error := tgbotapi.NewBotAPI(TOKEN)
+	bot, error := tgbotapi.NewBotAPI(os.Getenv("TOKEN"))
 
 	if error != nil {
 		panic(error)
@@ -44,12 +43,12 @@ func Screenshot(update tgbotapi.Update) {
 
 	var imageBuf []byte
 	if error := chromedp.Run(ctx, ScreenshotTasks(url, &imageBuf)); error != nil {
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "An error happened")
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Website not found.")
 		bot.Send(msg)
 	}
 
 	if error := ioutil.WriteFile(filename, imageBuf, 0644); error != nil {
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "An error happened")
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "An error happened, please try again.")
 		bot.Send(msg)
 	}
 

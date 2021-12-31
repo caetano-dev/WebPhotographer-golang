@@ -13,7 +13,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-//Screenshot function will save the image in the disk and send it
+//Screenshot function will save the screenshot and send it.
 func Screenshot(update tgbotapi.Update) {
 	error := godotenv.Load()
 	if error != nil {
@@ -42,7 +42,7 @@ func Screenshot(update tgbotapi.Update) {
 	filename := "screenshot.png"
 
 	var imageBuf []byte
-	if error := chromedp.Run(ctx, ScreenshotTasks(url, &imageBuf)); error != nil {
+	if error := chromedp.Run(ctx, screenshotTasks(url, &imageBuf)); error != nil {
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Website not found.")
 		bot.Send(msg)
 	}
@@ -57,8 +57,8 @@ func Screenshot(update tgbotapi.Update) {
 
 }
 
-//ScreenshotTasks function will take a screenshot of the website
-func ScreenshotTasks(url string, imageBuf *[]byte) chromedp.Tasks {
+//screenshotTasks will navigate to the website and take a screenshot of it.
+func screenshotTasks(url string, imageBuf *[]byte) chromedp.Tasks {
 	return chromedp.Tasks{
 		chromedp.Navigate(url),
 		chromedp.ActionFunc(func(ctx context.Context) (error error) {

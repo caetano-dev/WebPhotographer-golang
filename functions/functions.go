@@ -1,6 +1,8 @@
 package funtions
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"os"
@@ -33,14 +35,34 @@ func Screenshot(update tgbotapi.Update) {
 		website = website + ".com"
 	}
 
-	url := "https://api.screenshotmachine.com/?key=" + getRandomKey() + "&url=" + website + "&dimension=1024x3080"
+	url := "https://api.screenshotmachine.com/?key=" + randomKey() + "&url=" + website + "&dimension=1024x3080"
 
 	screenshot := tgbotapi.NewMessage(update.Message.Chat.ID, url)
 	bot.Send(screenshot)
 }
 
-//get getRandomKey will return a random item from a slice.
-func getRandomKey() string {
-	items := []string{"9cf822", "764f21", "6244bf ", "97ec9a", "80e53c", "f2909b", "7aaf56", "e7f994"}
-	return items[rand.Intn(len(items))]
+// Keys struct will hold the keys.
+type Keys struct {
+	Keys []string `json:"keys"`
+}
+
+// randomKey will return a random item from a slice.
+func randomKey() string {
+	file, error := os.Open("keys.json")
+	if error != nil {
+		log.Fatal(error)
+	}
+
+	keys, error := ioutil.ReadAll(file)
+	if error != nil {
+		log.Fatal(error)
+	}
+
+	var keysStruct Keys
+	json.Unmarshal(keys, &keysStruct)
+
+	randomKey := keysStruct.Keys[rand.Intn(len(keysStruct.Keys))]
+
+	return randomKey
+
 }

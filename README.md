@@ -35,3 +35,8 @@ or if you want the executable file:
 $ go build main.go
 $ ./main
 ```
+
+# Need a lighter version of this bot?
+
+Check out the [link-based](https://github.com/drull1000/WebPhotographer-golang/tree/link-based) branch.
+

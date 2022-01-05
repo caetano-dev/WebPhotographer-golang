@@ -1,4 +1,4 @@
-## Web Photographer - golang version
+# Web Photographer - golang version
 
 A Telegram bot that is able to take screenshots of webpages remotely and send it to its users.
 
@@ -36,7 +36,7 @@ $ go build main.go
 $ ./main
 ```
 
-# Need a lighter version of this bot?
+## Need a lighter version of this bot?
 
 Check out the [link-based](https://github.com/drull1000/WebPhotographer-golang/tree/link-based) branch.
 
